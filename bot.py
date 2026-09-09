@@ -3,7 +3,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 import random
 import time
 
-TOKEN = "TON_TOKEN_ICI"  # Remplace par ton vrai token
+TOKEN = "8766153141:AAFMCq2AqAE5Ak1z-fNN3ao4YdYPcLiW1cc"  # Remplace par ton vrai token
 
 MENACES = [
     "☠️ Le verdict est tombé. SK-MD a parlé.",
