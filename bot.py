@@ -22,7 +22,8 @@ def run_health_server():
 
 threading.Thread(target=run_health_server, daemon=True).start()
 
-TOKEN = "8766153141:AAFMCq2AqAE5Ak1z-fNN3ao4YdYPcLiW1cc"  # Remplace par ton vrai token
+import os
+TOKEN = os.environ.get("TOKEN")
 
 MENACES = [
     "☠️ Le verdict est tombé. SK-MD a parlé.",
