@@ -2,10 +2,10 @@ import os
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-from telegram import Update
-from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram.ext import Application, CommandHandler
 
 # Import des commandes
+from commands.general import start, ping
 from commands.menu import menu
 
 TOKEN = os.environ.get("TOKEN")
@@ -26,15 +26,14 @@ def run_health_server():
 
 threading.Thread(target=run_health_server, daemon=True).start()
 
-# --- COMMANDES DE BASE ---
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🔥 SK-MD est en ligne. Envoie /menu.")
-
-async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🏓 Pong !")
-
 # --- ENREGISTREMENT DES COMMANDES ---
 app = Application.builder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("ping", ping))
+app.add_handler(CommandHandler("menu", menu))
+
+print("🤖 SK-MD tourne...")
+app.run_polling()app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("ping", ping))
 app.add_handler(CommandHandler("menu", menu))
