@@ -1,42 +1,38 @@
-import os
-import threading
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from telegram import Update
+from telegram.ext import ContextTypes, CommandHandler
 
-from telegram.ext import Application, CommandHandler
+async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = """
+░▒▓█ 𓆩 𝐒𝐊-𝐌𝐃 𝐕𝟏.𝟎 𓆪 █▓▒░
+☠️ ✦ 𝐃𝐚𝐫𝐤 • 𝐅𝐚𝐬𝐭 • 𝐃𝐞𝐚𝐝𝐥𝐲 ✦ ☠️
 
-# Import des commandes
-from commands.general import start, ping
-from commands.menu import menu
+●───────────📂───────────●
+ ⚙️ 𝐌𝐨𝐝𝐞 : [ 𝐏𝐮𝐛𝐥𝐢𝐜 ]
+ 🧠 𝐏𝐫𝐞𝐟𝐢𝐱 : [ / ]
+ 📦 𝐂𝐨𝐦𝐦𝐚𝐧𝐝𝐞𝐬 : [ 𝟒 ]
+●────────────────────────●
 
-TOKEN = os.environ.get("TOKEN")
+ ╭─── 𓆩⚡𓆪 *𝐆𝐄́𝐍𝐄́𝐑𝐀𝐋* ───╮
+ │
+ │ 🩸 /start
+ │ 🩸 /ping
+ │ 🩸 /menu
+ │
+ ╰────────────────────────╯
 
-# --- SERVEUR HTTP POUR RENDER ---
-class HealthHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"SK-MD is alive")
-    def log_message(self, format, *args):
-        pass
+ ╭─── 𓆩💀𓆪 *𝐀𝐓𝐓𝐀𝐐𝐔𝐄* ───╮
+ │
+ │ 🩸 /ban + numéro
+ │
+ ╰────────────────────────╯
 
-def run_health_server():
-    port = int(os.environ.get("PORT", 10000))
-    server = HTTPServer(("0.0.0.0", port), HealthHandler)
-    server.serve_forever()
+   ╔══════════════════════╗
 
-threading.Thread(target=run_health_server, daemon=True).start()
+   ║   𝖖𝖚𝖊 𝖑𝖆 𝖕𝖚𝖗𝖌𝖊 𝖘𝖔𝖎𝖙   ║
+   ╚══════════════════════╝
+░▒▓█ 𓆩𝖓𝖇𝖌𝖉 𓆪 █▓▒░
+"""
+    await update.message.reply_text(text)
 
-# --- ENREGISTREMENT DES COMMANDES ---
-app = Application.builder().token(TOKEN).build()
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("ping", ping))
-app.add_handler(CommandHandler("menu", menu))
-
-print("🤖 SK-MD tourne...")
-app.run_polling()app = Application.builder().token(TOKEN).build()
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("ping", ping))
-app.add_handler(CommandHandler("menu", menu))
-
-print("🤖 SK-MD tourne...")
-app.run_polling()
+def register(commands):
+    commands.append(CommandHandler("menu", menu))
