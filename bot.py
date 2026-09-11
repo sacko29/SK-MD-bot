@@ -1,9 +1,9 @@
 import os
 import threading
+import traceback
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 from telegram.ext import Application
-
 from commands import load_commands
 
 TOKEN = os.environ.get("TOKEN")
@@ -24,16 +24,25 @@ def run_health_server():
 
 threading.Thread(target=run_health_server, daemon=True).start()
 
-# --- CHARGEMENT AUTOMATIQUE DES COMMANDES ---
-app = Application.builder().token(TOKEN).build()
+print("🔍 Démarrage SK-MD...")
 
-for handler in load_commands():
-    app.add_handler(handler)
+try:
+    print("⏳ Chargement des commandes...")
+    handlers = load_commands()
+    print(f"✅ {len(handlers)} commandes chargées.")
 
-print(
-    "●──────── 𓆩 𝐒𝐊-𝐌𝐃 𓆪 ────────●\n"
-    "  ☠️ 𝐒𝐘𝐒𝐓𝐄̀𝐌𝐄 𝐄́𝐕𝐄𝐈𝐋𝐋𝐄́\n"
-    "  🩸 𝐉𝐞 𝐬𝐮𝐢𝐬 𝐚̀ 𝐯𝐨𝐬 𝐨𝐫𝐝𝐫𝐞𝐬.\n"
-    "●──────────────────────────●\n"
-    "░▒▓"
-)
+    print("⏳ Connexion à Telegram...")
+    app = Application.builder().token(TOKEN).build()
+
+    for handler in handlers:
+        app.add_handler(handler)
+
+    print("🤖 SK-MD tourne... que la purge soit !")
+    app.run_polling()
+
+except Exception as e:
+    print("=" * 50)
+    print("❌ ERREUR FATALE :")
+    print("=" * 50)
+    traceback.print_exc()
+    print("=" * 50)
