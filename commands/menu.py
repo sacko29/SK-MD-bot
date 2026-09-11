@@ -27,3 +27,6 @@ async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 ░▒▓█ 𓆩𝖓𝖇𝖌𝖉 𓆪 █▓▒░
 """
     await update.message.reply_text(text)
+
+def register(commands):
+    commands.append(CommandHandler("nom", fonction))
