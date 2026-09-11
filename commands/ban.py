@@ -156,3 +156,5 @@ def register(commands):
 
 def register(commands):
     commands.append(CommandHandler("ban", ban))
+    commands.append(CallbackQueryHandler(motif_callback, pattern=r"^motif_"))
+    commands.append(CallbackQueryHandler(message_callback, pattern=r"^msg_"))
