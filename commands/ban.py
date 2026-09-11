@@ -45,4 +45,4 @@ async def ban(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(erreur)
 
 def register(commands):
-    commands.append(CommandHandler("ban", ban))
+    commands.append(CommandHandler("nom", fonction))
