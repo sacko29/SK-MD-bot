@@ -37,7 +37,6 @@ ERREURS = [
     "💀 *Tu as oublié la cible.* Réfléchis.",
 ]
 
-# --- COMMANDE /ban ---
 async def ban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         target = context.args[0]
@@ -70,7 +69,6 @@ async def ban(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
-# --- GESTION DU CHOIX DU MOTIF ---
 async def motif_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -105,7 +103,6 @@ async def motif_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
-# --- GESTION DU CHOIX DU MESSAGE ---
 async def message_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -139,20 +136,6 @@ async def message_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"💀 *Que la purge soit.*",
         parse_mode="Markdown"
     )
-
-# --- ENREGISTREMENT ---
-def register(commands):
-    commands.append(CommandHandler("ban", ban))
-    commands.append(CallbackQueryHandler(motif_callback, pattern=r"^motif_"))
-    commands.append(CallbackQueryHandler(message_callback, pattern=r"^msg_"))        attaque = random.choice(REPONSES_BAN).format(target=target)
-
-        await update.message.reply_text(menace)
-        await update.message.reply_text("⏳ 0%... 50%... 100%")
-        await update.message.reply_text(attaque)
-
-    except IndexError:
-        erreur = random.choice(ERREURS)
-        await update.message.reply_text(erreur)
 
 def register(commands):
     commands.append(CommandHandler("ban", ban))
