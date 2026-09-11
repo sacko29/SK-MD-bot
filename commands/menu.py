@@ -1,5 +1,5 @@
 from telegram import Update
-from telegram.ext import ContextTypes
+from telegram.ext import ContextTypes, CommandHandler
 
 async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = """
