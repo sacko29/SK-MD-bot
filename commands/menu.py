@@ -29,4 +29,4 @@ async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text)
 
 def register(commands):
-    commands.append(CommandHandler("nom", fonction))
+    commands.append(CommandHandler("menu", menu))
