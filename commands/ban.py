@@ -113,7 +113,7 @@ async def message_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     motif = MOTIFS.get(motif_key)
     target = context.user_data.get("target", "inconnu")
-    message = motif["messages"][msg_index]
+    message = motif["messages"][msg_index].format(target=target)
 
     menace = random.choice(MENACES).format(target=target)
     attaque = random.choice(REPONSES_BAN).format(target=target)
